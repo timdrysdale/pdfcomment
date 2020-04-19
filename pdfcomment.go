@@ -68,8 +68,8 @@ func GetComments(reader *pdf.PdfReader) (Comments, error) {
 
 }
 
-func GetCommentsForPage(comments Comments, page int) []Comment {
+func (c Comments) GetByPage(page int) []Comment {
 
-	return comments[page]
+	return c[page]
 
 }

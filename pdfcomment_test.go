@@ -38,7 +38,7 @@ func TestPDFExtract(t *testing.T) {
 	expectedComments[2] = []Comment{c20, c21}
 
 	for i := 0; i < 3; i++ {
-		if !reflect.DeepEqual(comments[i], expectedComments[i]) {
+		if !reflect.DeepEqual(comments.GetByPage(i), expectedComments[i]) {
 			t.Errorf("Comments wrong")
 		}
 	}
