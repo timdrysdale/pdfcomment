@@ -53,13 +53,13 @@ func TestPDFFlatten(t *testing.T) {
 	c.SetPageMargins(0, 0, 0, 0) // we're not printing
 	c.SetPageSize(creator.PageSizeA4)
 	c.NewPage()
-	makeMarker(c, c00, "1")
+	DrawComment(c, c00, "1", 10, 820)
 	c.NewPage()
-	makeMarker(c, c10, "1")
-	makeMarker(c, c11, "2")
+	DrawComment(c, c10, "1", 10, 820)
+	DrawComment(c, c11, "2", 10, 830)
 	c.NewPage()
-	makeMarker(c, c20, "1")
-	makeMarker(c, c21, "2")
+	DrawComment(c, c20, "1", 10, 820)
+	DrawComment(c, c21, "2", 10, 830)
 
 	c.SetOptimizer(optimize.New(optimize.Options{
 		CombineDuplicateDirectObjects:   true,

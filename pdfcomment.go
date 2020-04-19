@@ -7,6 +7,7 @@
 package pdfcomment
 
 import (
+	"fmt"
 	"reflect"
 	"strconv"
 
@@ -75,14 +76,31 @@ func (c Comments) GetByPage(page int) []Comment {
 
 }
 
-func makeMarker(c *creator.Creator, comment Comment, label string) {
+func DrawMarker(c *creator.Creator, comment Comment, label string) {
 
 	r := c.NewRectangle(comment.Pos.X, comment.Pos.Y, 5*creator.PPMM, 5*creator.PPMM)
 	r.SetBorderColor(creator.ColorYellow)
 	r.SetFillColor(creator.ColorYellow)
 	c.Draw(r)
-	p := c.NewParagraph(label)
+	p := c.NewParagraph(fmt.Sprintf("[%s]", label))
 	p.SetPos(comment.Pos.X, comment.Pos.Y)
 	c.Draw(p)
 
+}
+
+func DrawText(c *creator.Creator, comment Comment, label string, X, Y float64) {
+
+	p := c.NewParagraph(fmt.Sprintf("[%s] %s", label, comment.Text))
+	p.SetPos(X, Y)
+	c.Draw(p)
+
+}
+
+func DrawComment(c *creator.Creator, comment Comment, label string, X, Y float64) {
+
+	DrawText(c, comment, label, X, Y)
+	DrawMarker(c, comment, label)
+	comment.Pos.X = X
+	comment.Pos.Y = Y
+	DrawMarker(c, comment, label)
 }
