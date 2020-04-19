@@ -7,7 +7,6 @@
 package pdfcomment
 
 import (
-	"fmt"
 	"reflect"
 	"strconv"
 
@@ -17,15 +16,13 @@ import (
 )
 
 type Comment struct {
-	Pos    geo.Point
-	Text   string
-	Author string
-	Page   int
+	Pos  geo.Point
+	Text string
+	Page int
 }
 
 type Comments map[int][]Comment
 
-// this doesn't know about pages ...?!!
 func GetComments(reader *pdf.PdfReader) (Comments, error) {
 
 	comments := make(map[int][]Comment)
@@ -38,12 +35,7 @@ func GetComments(reader *pdf.PdfReader) (Comments, error) {
 
 				if reflect.TypeOf(annot.GetContext()).String() == "*model.PdfAnnotationText" {
 
-					fmt.Println(annot.Contents)
-					fmt.Println(annot.Rect)
-
 					if rect, is := annot.Rect.(*pdfcore.PdfObjectArray); is {
-
-						fmt.Printf("%v %v %v %v\n", rect.Get(0), rect.Get(1), rect.Get(2), rect.Get(3))
 
 						x, err := strconv.ParseFloat(rect.Get(0).String(), 64)
 						if err != nil {
@@ -73,5 +65,11 @@ func GetComments(reader *pdf.PdfReader) (Comments, error) {
 	}
 
 	return comments, nil
+
+}
+
+func GetCommentsForPage(comments Comments, page int) []Comment {
+
+	return comments[page]
 
 }
