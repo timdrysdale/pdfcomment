@@ -6,7 +6,9 @@ import (
 	"testing"
 
 	"github.com/timdrysdale/geo"
+	"github.com/unidoc/unipdf/v3/creator"
 	pdf "github.com/unidoc/unipdf/v3/model"
+	"github.com/unidoc/unipdf/v3/model/optimize"
 )
 
 var c00 = Comment{Pos: geo.Point{X: 117.819, Y: 681.924}, Text: "This is a comment on page 1"}
@@ -43,4 +45,31 @@ func TestPDFExtract(t *testing.T) {
 		}
 	}
 
+}
+
+func TestPDFFlatten(t *testing.T) {
+
+	c := creator.New()
+	c.SetPageMargins(0, 0, 0, 0) // we're not printing
+	c.SetPageSize(creator.PageSizeA4)
+	c.NewPage()
+	makeMarker(c, c00, "1")
+	c.NewPage()
+	makeMarker(c, c10, "1")
+	makeMarker(c, c11, "2")
+	c.NewPage()
+	makeMarker(c, c20, "1")
+	makeMarker(c, c21, "2")
+
+	c.SetOptimizer(optimize.New(optimize.Options{
+		CombineDuplicateDirectObjects:   true,
+		CombineIdenticalIndirectObjects: true,
+		CombineDuplicateStreams:         true,
+		CompressStreams:                 true,
+		UseObjectStreams:                true,
+		ImageQuality:                    80,
+		ImageUpperPPI:                   100,
+	}))
+
+	c.WriteToFile("./test/flattened-comments.pdf")
 }

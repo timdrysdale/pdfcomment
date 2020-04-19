@@ -12,6 +12,7 @@ import (
 
 	"github.com/timdrysdale/geo"
 	pdfcore "github.com/unidoc/unipdf/v3/core"
+	creator "github.com/unidoc/unipdf/v3/creator"
 	pdf "github.com/unidoc/unipdf/v3/model"
 )
 
@@ -71,5 +72,17 @@ func GetComments(reader *pdf.PdfReader) (Comments, error) {
 func (c Comments) GetByPage(page int) []Comment {
 
 	return c[page]
+
+}
+
+func makeMarker(c *creator.Creator, comment Comment, label string) {
+
+	r := c.NewRectangle(comment.Pos.X, comment.Pos.Y, 5*creator.PPMM, 5*creator.PPMM)
+	r.SetBorderColor(creator.ColorYellow)
+	r.SetFillColor(creator.ColorYellow)
+	c.Draw(r)
+	p := c.NewParagraph(label)
+	p.SetPos(comment.Pos.X, comment.Pos.Y)
+	c.Draw(p)
 
 }
