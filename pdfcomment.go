@@ -97,7 +97,7 @@ func DrawText(c *creator.Creator, comment Comment, label string, X, Y float64) {
 }
 
 func DrawComment(c *creator.Creator, comment Comment, label string, X, Y float64) {
-
+	comment.Pos.Y = c.Height() - comment.Pos.Y
 	DrawText(c, comment, label, X, Y)
 	DrawMarker(c, comment, label)
 	comment.Pos.X = X
