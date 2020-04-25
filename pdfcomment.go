@@ -12,9 +12,9 @@ import (
 	"strconv"
 
 	"github.com/timdrysdale/geo"
-	pdfcore "github.com/unidoc/unipdf/v3/core"
-	creator "github.com/unidoc/unipdf/v3/creator"
-	pdf "github.com/unidoc/unipdf/v3/model"
+	pdfcore "github.com/timdrysdale/unipdf/v3/core"
+	creator "github.com/timdrysdale/unipdf/v3/creator"
+	pdf "github.com/timdrysdale/unipdf/v3/model"
 )
 
 type Comment struct {

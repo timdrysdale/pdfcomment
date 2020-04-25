@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/timdrysdale/geo"
-	"github.com/unidoc/unipdf/v3/creator"
-	pdf "github.com/unidoc/unipdf/v3/model"
-	"github.com/unidoc/unipdf/v3/model/optimize"
+	"github.com/timdrysdale/unipdf/v3/creator"
+	pdf "github.com/timdrysdale/unipdf/v3/model"
+	"github.com/timdrysdale/unipdf/v3/model/optimize"
 )
 
 var c00 = Comment{Pos: geo.Point{X: 117.819, Y: 681.924}, Text: "This is a comment on page 1"}
